@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author RunningKuma
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -138,6 +138,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+         for(int i=0;i < b.size();i++) {
+             for(int j=0;j<b.size();j++) {
+                 if(b.tile(i,j) == null) {
+                     return true;
+                 }
+             }
+         }
         return false;
     }
 
@@ -148,6 +155,13 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for(int i = 0; i < b.size();i++) {
+            for(int j=0;j<b.size();j++) {
+                if(b.tile(i,j) != null && b.tile(i,j).value() == MAX_PIECE ) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,9 +173,27 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        if(emptySpaceExists(b)) {return true;}
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++) {
+                for (int k = -1; k <= 1; k++) {
+                    if (i + k >= 0 && i + k < b.size()) {
+                        if (b.tile(i + k, j).value() == b.tile(i, j).value() && k != 0) {
+                            return true;
+                        }
+                    }
+                }
+                for (int k = -1; k <= 1; k++) {
+                    if (j + k >= 0 && j + k < b.size()) {
+                        if (b.tile(i, j + k).value() == b.tile(i, j).value() && k != 0) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+            return false;
     }
-
 
     @Override
      /** Returns the model as a string, used for debugging. */
