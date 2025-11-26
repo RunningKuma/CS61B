@@ -2,7 +2,7 @@ package deque;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
-public class ArrayDeque <T> implements Iterable<T>{
+public class ArrayDeque <T> implements Iterable<T>, Deque<T> {
     T[] array;
     int size;
     int nextFirst;
@@ -14,6 +14,7 @@ public class ArrayDeque <T> implements Iterable<T>{
         nextFirst = 4;
         nextLast = 5;
     }
+    @Override
     public void addFirst(T item){
         if(nextFirst == nextLast){
             resize(size*2);
@@ -22,7 +23,7 @@ public class ArrayDeque <T> implements Iterable<T>{
         nextFirst = (nextFirst + array.length - 1) % array.length;
         size += 1;
     }
-
+    @Override
     public void addLast(T item){
         if(nextFirst == nextLast){
             resize(size*2);
@@ -31,22 +32,18 @@ public class ArrayDeque <T> implements Iterable<T>{
         nextLast = (nextLast + 1) % array.length;
         size += 1;
     }
-
-    public boolean isEmpty(){
-        return size == 0;
-    }
-
+    @Override
     public int size(){
         return size;
     }
-
+    @Override
     public void printDeque(){
         for(int i=nextFirst+1;i % array.length != nextLast - 1;i++){
             System.out.print(array[i % array.length] + " ");
         }
         System.out.print("\n");
     }
-
+    @Override
     public T get(int index){
         return array[(nextFirst + index + 1) % array.length];
     }
@@ -71,7 +68,7 @@ public class ArrayDeque <T> implements Iterable<T>{
         array = a;
 
     }
-
+    @Override
     public T removeFirst() {
         if(size == 0){
             return null;
@@ -85,7 +82,7 @@ public class ArrayDeque <T> implements Iterable<T>{
         size -= 1;
         return item;
     }
-
+    @Override
     public T removeLast() {
         if(size == 0){
             return null;
@@ -106,11 +103,11 @@ public class ArrayDeque <T> implements Iterable<T>{
         public DequeIterator(){
             idx = nextFirst;
         }
-
+        @Override
         public boolean hasNext() {
             return (idx+1)% array.length != nextLast;
         }
-
+        @Override
         public T next(){
             idx = (idx + 1)% array.length;
             return array[idx];
