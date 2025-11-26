@@ -52,15 +52,51 @@ public class ArrayDeque<T> {
 
     public void resize(int capacity){
         T[] a = (T[]) new Object[capacity];
-        for(int i=0;i<nextLast;i++){
-            a[i] = array[i];
+        if(capacity > array.length){
+            for(int i=0;i<nextLast;i++){
+                a[i] = array[i];
+            }
+            for(int i = nextFirst;i < array.length;i++){
+                a[capacity - array.length + i] = array[i];
+            }
+            nextFirst = capacity - array.length + nextLast;
+        }else{
+            for(int i=0; i < size;i++){
+                a[i] = array[(nextFirst + i + 1) % array.length];
+            }
+            nextFirst = capacity - 1;
+            nextLast = size;
         }
-        for(int i = nextFirst;i < array.length;i++){
-            a[capacity - array.length + i] = array[i];
-        }
-        nextFirst = capacity - array.length + nextLast;
         array = a;
+
     }
 
+    public T removeFirst() {
+        if(size == 0){
+            return null;
+        }
+        if(size < array.length / 4){
+            resize(array.length / 4);
+        }
+        T item = array[(nextFirst+1) % array.length];
+        array[(nextFirst+1) % array.length] = null;
+        nextFirst = (nextFirst + 1) % array.length;
+        size -= 1;
+        return item;
+    }
+
+    public T removeLast() {
+        if(size == 0){
+            return null;
+        }
+        if(size < array.length / 4){
+            resize(array.length / 4);
+        }
+        T item = array[(nextLast-1 + array.length) % array.length];
+        array[(nextLast-1 + array.length) % array.length] = null;
+        nextLast  = (nextLast-1 + array.length) % array.length;
+        size -= 1;
+        return item;
+    }
 
 }
