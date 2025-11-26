@@ -129,8 +129,44 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
 
-
     }
+
+    @Test
+    public void iteratorTest(){
+        ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+        for (int i = 0; i < 20; i++) {
+            queue.addLast(i);
+        }
+        int k=0;
+        for (int i : queue){
+            assertEquals(k,i);
+            k++;
+        }
+    }
+    @Test
+    public void equalTest(){
+        ArrayDeque<Integer> original = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> equal = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> not_size = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> not_item = new ArrayDeque<Integer>();
+        for (int i = 0; i < 20; i++) {
+            original.addLast(i);
+            equal.addLast(i);
+            if(i == 8){
+                not_item.addLast(888);
+            }
+            else{
+                not_item.addLast(i);
+            }
+            if(i % 2 == 0)
+                not_size.addLast(i);
+        }
+        assertTrue("should be equal",original.equals(equal));
+        assertFalse("should be size not_equal",original.equals(not_size));
+        assertFalse("should be item not_equal",original.equals(not_item));
+    }
+
+
 }
 
 

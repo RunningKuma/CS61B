@@ -1,7 +1,8 @@
 package deque;
 import java.lang.reflect.Array;
+import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque <T> implements Iterable<T>{
     T[] array;
     int size;
     int nextFirst;
@@ -97,6 +98,44 @@ public class ArrayDeque<T> {
         nextLast  = (nextLast-1 + array.length) % array.length;
         size -= 1;
         return item;
+    };
+
+    private class DequeIterator implements Iterator<T> {
+        private int idx;
+
+        public DequeIterator(){
+            idx = nextFirst;
+        }
+
+        public boolean hasNext() {
+            return (idx+1)% array.length != nextLast;
+        }
+
+        public T next(){
+            idx = (idx + 1)% array.length;
+            return array[idx];
+        }
     }
 
+    public Iterator<T> iterator(){
+        return new ArrayDeque<T>.DequeIterator();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof ArrayDeque od){
+            if(this.size == od.size){
+                Iterator<T> tmp = od.iterator();
+                for(T i : this){
+                    if(i != tmp.next())
+                        return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }
+
+
