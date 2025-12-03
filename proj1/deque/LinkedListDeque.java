@@ -157,21 +157,21 @@ public class LinkedListDeque<T>  implements Iterable<T>, Deque<T>{
         return new DequeIterator();
     }
 
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof LinkedListDeque od){
-            if(this.size == od.size){
-                Node<T> tmp = od.sentinel.next;
-                for(T i : this){
-                    if(tmp.item != i){
-                        return false;
-                    }
-                    tmp = tmp.next;
-                }
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object o){
+//        if(o instanceof LinkedListDeque od){
+//            if(this.size == od.size){
+//                Node<T> tmp = od.sentinel.next;
+//                for(T i : this){
+//                    if(tmp.item != i){
+//                        return false;
+//                    }
+//                    tmp = tmp.next;
+//                }
+//                return true;
+//            }
+//            return false;
+//        }
+//        return false;
+//    }
 }

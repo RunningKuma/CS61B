@@ -59,7 +59,7 @@ public class ArrayDequeTest {
     public void removeEmptyTest() {
 
 
-        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
         lld1.addFirst(3);
 
         lld1.removeLast();

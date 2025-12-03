@@ -118,21 +118,21 @@ public class ArrayDeque <T> implements Iterable<T>, Deque<T> {
         return new ArrayDeque<T>.DequeIterator();
     }
 
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof ArrayDeque od){
-            if(this.size == od.size){
-                Iterator<T> tmp = od.iterator();
-                for(T i : this){
-                    if(i != tmp.next())
-                        return false;
-                }
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean equals(Object o){
+//        if(o instanceof ArrayDeque od){
+//            if(this.size == od.size){
+//                Iterator<T> tmp = od.iterator();
+//                for(T i : this){
+//                    if(i != tmp.next())
+//                        return false;
+//                }
+//                return true;
+//            }
+//            return false;
+//        }
+//        return false;
+//    }
 }
 
 
