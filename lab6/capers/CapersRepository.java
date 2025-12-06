@@ -35,14 +35,8 @@ public class CapersRepository {
      */
     public static void setupPersistence() {
         // TODO
-        try{
-            boolean is_create_capers = CAPERS_FOLDER.mkdir();
-            boolean is_create_story = Utils.join(CAPERS_FOLDER,"story").createNewFile();
-            boolean is_create_DogFolder = Utils.join(CAPERS_FOLDER,"dogs").mkdir();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        CAPERS_FOLDER.mkdir();
+        Dog.DOG_FOLDER.mkdir();
     }
 
     /**
@@ -51,11 +45,15 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        File story = Utils.join(CAPERS_FOLDER,"story");
-        String old_story_str = Utils.readContentsAsString(story);
-        String new_story_str = old_story_str + text + "\n";
-        System.out.print(new_story_str);
-        Utils.writeContents(story, new_story_str);
+        File f = join(CAPERS_FOLDER, "story");
+        String newStory;
+        if(!f.exists()) {
+            newStory = text;
+        } else {
+            String originStory = readContentsAsString(f);
+            newStory = originStory + '\n' + text;
+        }    writeContents(f, newStory);
+        System.out.println(newStory);
         // TODO
     }
 
@@ -67,6 +65,7 @@ public class CapersRepository {
     public static void makeDog(String name, String breed, int age) {
         Dog dog = new Dog(name,breed,age);
         dog.saveDog();
+        System.out.println(dog);
         // TODO
     }
 
@@ -79,7 +78,7 @@ public class CapersRepository {
     public static void celebrateBirthday(String name) {
         Dog dog = Dog.fromFile(name);
         dog.haveBirthday();
-        System.out.print(dog.toString());
+        dog.saveDog();
         // TODO
     }
 }
