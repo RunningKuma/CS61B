@@ -1,15 +1,16 @@
 # Gitlet Design Document
 
-**Name**:
+**Name**: RunningKuma
 
 ## Classes and Data Structures
 
-### Class 1
+### Commit
 
-#### Fields
+#### Instance Variables
 
-1. Field 1
-2. Field 2
+1. Message: git message
+2. TimeStamp: record Commit time
+3. 
 
 
 ### Class 2
